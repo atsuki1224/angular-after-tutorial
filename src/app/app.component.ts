@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component }   from '@angular/core';
+import { User }        from './user';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-after-tutorial';
+  users: User[] = [];
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
 }
